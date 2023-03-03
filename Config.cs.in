@@ -1,4 +1,6 @@
-﻿#pragma warning disable IDE0002
+﻿#pragma warning disable IDE0002, IDE1006
+
+using Newtonsoft.Json;
 
 namespace ddns {
     public static class Config {
@@ -6,5 +8,17 @@ namespace ddns {
         public static readonly string Key = "";
         public static readonly string Domain = "google.com";
         public static readonly string SubDomain = "api";
+    }
+
+    public class ipify {
+#pragma warning disable CS0649
+        public string? ip = null;
+#pragma warning restore CS0649
+    }
+
+    public static string? GetIP() {
+        var response = new HttpClient().GetAsync("https://api.ipify.org/?format=json").Result;
+        var body = response.Content.ReadAsStringAsync().Result;
+        return JsonConvert.DeserializeObject<ipify>(body)?.ip;
     }
 }

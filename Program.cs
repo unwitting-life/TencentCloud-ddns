@@ -1,10 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-#pragma warning disable IDE1006
-
 using ddns;
-
-using Newtonsoft.Json;
-
 using TencentCloud.Common;
 using TencentCloud.Common.Profile;
 using TencentCloud.Dnspod.V20210323;
@@ -30,7 +25,7 @@ try {
         Domain = Config.Domain
     }).RecordList) {
         if (item.Name.Equals(Config.SubDomain)) {
-            if (ipify.GetIP() is string ip) {
+            if (Config.GetIP() is string ip) {
                 if (CreateDnspodClient().ModifyRecordSync(new ModifyRecordRequest {
                     Domain = Config.Domain,
                     SubDomain = item.Name,
@@ -50,15 +45,3 @@ try {
 }
 
 Thread.Sleep(1000);
-
-class ipify {
-#pragma warning disable CS0649
-    public string? ip = null;
-#pragma warning restore CS0649
-
-    public static string? GetIP() {
-        var response = new HttpClient().GetAsync("https://api.ipify.org/?format=json").Result;
-        var body = response.Content.ReadAsStringAsync().Result;
-        return JsonConvert.DeserializeObject<ipify>(body)?.ip;
-    }
-}
