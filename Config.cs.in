@@ -1,0 +1,10 @@
+﻿#pragma warning disable IDE0002
+
+namespace ddns {
+    public static class Config {
+        public static readonly string Id = "";
+        public static readonly string Key = "";
+        public static readonly string Domain = "google.com";
+        public static readonly string SubDomain = "api";
+    }
+}
