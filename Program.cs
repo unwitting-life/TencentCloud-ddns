@@ -33,7 +33,7 @@ try {
                     RecordLine = DOMAIN_RECORD_LINE,
                     Value = ip,
                     RecordId = item.RecordId,
-                }).RequestId is string) {
+                }).RequestId is not null) {
                     Console.WriteLine($"{Config.SubDomain}.{Config.Domain} → {ip}");
                 }
             }
